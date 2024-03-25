@@ -8,7 +8,7 @@
         <version>3.2.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.restfulcountries</groupId>
+    <groupId>com.restfulcountries.api</groupId>
     <artifactId>restful-countries-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>restful-countries-backend</name>
