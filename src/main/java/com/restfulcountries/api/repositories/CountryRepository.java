@@ -1,4 +1,11 @@
 package com.restfulcountries.api.repositories;
 
-public interface CountryRepository {
+import com.restfulcountries.api.entities.v2.Country;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
+
+@Repository
+public interface CountryRepository extends JpaRepository<Country, UUID> {
 }

@@ -5,7 +5,7 @@ import com.restfulcountries.api.pojo.v1.CountryObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("country-service-v1")
 public class CountryService {
     private final RestfulCountriesClient restfulCountriesClient;
     @Value("${api.legacy.restfulcountries.token}")
