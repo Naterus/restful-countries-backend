@@ -1,6 +1,6 @@
 package com.restfulcountries.api.controllers.v1;
 
-import com.restfulcountries.api.pojo.v1.CountryPojo;
+import com.restfulcountries.api.pojo.v1.CountryObject;
 import com.restfulcountries.api.services.v1.CountryService;
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +20,16 @@ public class CountryController {
     }
 
     @GetMapping
-    CountryPojo getCountries(@RequestParam @Nullable Integer per_page,
-                             @RequestParam @Nullable String continent,
-                             @RequestParam @Nullable Integer population_from,
-                             @RequestParam @Nullable Integer population_to,
-                             @RequestParam @Nullable Integer size_from,
-                             @RequestParam @Nullable Integer size_to,
-                             @RequestParam @Nullable String iso2,
-                             @RequestParam @Nullable String iso3,
-                             @RequestParam @Nullable Integer code,
-                             @RequestParam @Nullable String fetch_type
+    CountryObject getCountries(@RequestParam @Nullable Integer per_page,
+                               @RequestParam @Nullable String continent,
+                               @RequestParam @Nullable Integer population_from,
+                               @RequestParam @Nullable Integer population_to,
+                               @RequestParam @Nullable Integer size_from,
+                               @RequestParam @Nullable Integer size_to,
+                               @RequestParam @Nullable String iso2,
+                               @RequestParam @Nullable String iso3,
+                               @RequestParam @Nullable Integer code,
+                               @RequestParam @Nullable String fetch_type
                              ){
         return countryService.getCountries(per_page,continent,population_from,population_to,size_from,size_to,iso2,iso3,code,fetch_type);
     }
