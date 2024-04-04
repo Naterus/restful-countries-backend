@@ -1,5 +1,6 @@
 package com.restfulcountries.api.entities.v2;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -35,6 +36,7 @@ public class Country {
                     name = "country_continent_fk"
             )
     )
+    @JsonBackReference
     private Continent continent;
 
     public void setContinent(Continent continent) {

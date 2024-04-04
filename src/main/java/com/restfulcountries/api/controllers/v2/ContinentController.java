@@ -1,6 +1,7 @@
 package com.restfulcountries.api.controllers.v2;
 
 import com.restfulcountries.api.entities.v2.Continent;
+import com.restfulcountries.api.entities.v2.Country;
 import com.restfulcountries.api.services.v2.ContinentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,5 +29,10 @@ public class ContinentController {
     @GetMapping(path = "/{id}")
     Optional<Continent> getContinent(@PathVariable UUID id){
         return continentService.getContinent(id);
+    }
+
+    @GetMapping(path = "/{id}/countries")
+    List<Country> getCountriesInContinent(@PathVariable UUID id){
+        return continentService.getCountriesInContinent(id);
     }
 }

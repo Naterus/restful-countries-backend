@@ -1,5 +1,6 @@
 package com.restfulcountries.api.entities.v2;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Continent {
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             fetch = FetchType.LAZY
     )
+    @JsonManagedReference
     private final List<Country> countries = new ArrayList<>();
 
     public Continent(UUID id, String name, Long area, String areaMeasureUnit, Long population) {
@@ -53,5 +55,9 @@ public class Continent {
 
     public Long getPopulation() {
         return population;
+    }
+
+    public List<Country> getCountries() {
+        return countries;
     }
 }
