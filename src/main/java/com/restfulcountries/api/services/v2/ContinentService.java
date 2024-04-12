@@ -29,4 +29,5 @@ public class ContinentService {
     public List<Country> getCountriesInContinent(UUID id) {
         return Objects.requireNonNull(continentRepository.findById(id).orElse(new Continent())).getCountries();
     }
+
 }
