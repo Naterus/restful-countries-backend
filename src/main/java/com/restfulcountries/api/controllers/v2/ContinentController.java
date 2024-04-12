@@ -27,7 +27,7 @@ public class ContinentController {
     }
 
     @GetMapping(path = "/{id}")
-    Optional<Continent> getContinent(@PathVariable UUID id){
+    Continent getContinent(@PathVariable UUID id){
         return continentService.getContinent(id);
     }
 

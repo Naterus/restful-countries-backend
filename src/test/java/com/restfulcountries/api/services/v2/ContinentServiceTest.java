@@ -1,17 +1,20 @@
 package com.restfulcountries.api.services.v2;
 
 import com.restfulcountries.api.entities.v2.Continent;
+import com.restfulcountries.api.exceptions.NotFoundException;
 import com.restfulcountries.api.repositories.ContinentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.internal.matchers.Not;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -51,16 +54,16 @@ class ContinentServiceTest {
     }
 
     @Test
-    void itShouldReturnNullIfContinentNotFound() {
+    void itShouldThrowExceptionIfContinentNotFound() {
         //Given
         UUID continentId = UUID.randomUUID();
-        given(continentRepository.findById(continentId)).willReturn(null);
+        given(continentRepository.findById(continentId)).willReturn(Optional.empty());
 
         //When
-        var getContinent = continentService.getContinent(continentId);
-
         //Then
-        assertThat(getContinent).isNull();
+        assertThatThrownBy(() ->{
+            continentService.getContinent(continentId);
+        }).isInstanceOf(NotFoundException.class).hasMessageContaining("Continent not found");
     }
 
     @Test
@@ -74,5 +77,18 @@ class ContinentServiceTest {
 
         //Then
         assertThat(getContinent).isNotNull();
+    }
+
+    @Test
+    void itShouldThrowExceptionIfContinentNotFoundForCountries() {
+        //Given
+        UUID continentId = UUID.randomUUID();
+        given(continentRepository.findById(continentId)).willReturn(Optional.empty());
+
+        //When
+        //Then
+        assertThatThrownBy(() -> {
+            continentService.getCountriesInContinent(continentId);
+        }).isInstanceOf(NotFoundException.class).hasMessageContaining("Continent not found");
     }
 }

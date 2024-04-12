@@ -2,6 +2,7 @@ package com.restfulcountries.api.services.v2;
 
 import com.github.javafaker.Faker;
 import com.restfulcountries.api.entities.v2.Country;
+import com.restfulcountries.api.exceptions.NotFoundException;
 import com.restfulcountries.api.repositories.CountryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -90,7 +92,7 @@ class CountryServiceTest {
         given(countryRepository.findById(country.getId())).willReturn(Optional.of(country));
 
         //When
-        Optional<Country> getCountry = countryService.getCountry(country.getId());
+        Country getCountry = countryService.getCountry(country.getId());
 
         //Then
         assertThat(getCountry).isNotNull();
@@ -100,12 +102,12 @@ class CountryServiceTest {
     void itShouldReturnNullIfCountryNotFound() {
         //Given
         UUID countryId = UUID.randomUUID();
-        given(countryRepository.findById(countryId)).willReturn(null);
+        given(countryRepository.findById(countryId)).willReturn(Optional.empty());
 
         //When
-        var country = countryService.getCountry(countryId);
-
         //Then
-        assertThat(country).isNull();
+        assertThatThrownBy(() -> {
+            countryService.getCountry(countryId);
+        }).isInstanceOf(NotFoundException.class).hasMessageContaining("Country not found");
     }
 }
