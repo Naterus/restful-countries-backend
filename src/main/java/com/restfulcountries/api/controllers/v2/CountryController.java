@@ -29,7 +29,7 @@ public class CountryController {
     }
 
     @GetMapping (path = "/{id}")
-    Optional <Country> getCountry(@PathVariable UUID id){
+    Country getCountry(@PathVariable UUID id){
         return countryService.getCountry(id);
     }
 }
